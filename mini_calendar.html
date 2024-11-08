@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 17</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #ebebeb;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 1rem;
+            width: 20rem;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            text-align: center;
+        }
+        .container .month {
+            background-color: orangered;
+            color: #fff;
+            padding: 0.5rem;
+            font-size: 2rem;
+        }
+        .container .day,
+        .container .year {
+            font-size: 1.2rem;
+            opacity: 0.3;
+        }
+        .container .date {
+            margin: 1rem 0;
+            font-size: 5rem;
+            font-weight: bold;
+        }
+        .container .year {
+            padding-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="month"></div>
+        <div class="day"></div>
+        <div class="date"></div>
+        <div class="year"></div>
+    </div>
+    <script>
+        const monthElement = document.querySelector('.month');
+        const dayElement = document.querySelector('.day');
+        const dateElement = document.querySelector('.date');
+        const yearElement = document.querySelector('.year');
+
+        const currentDate = new Date();
+
+        const months = [
+            "January", "February", "March", "April", "May", "June", 
+            "July", "August", "September", "October", "November", "December"
+        ];
+        const days = [
+            "Sunday", "Monday", "Tuesday", "Wednesday", 
+            "Thursday", "Friday", "Saturday"
+        ];
+
+        monthElement.textContent = months[currentDate.getMonth()];
+        dayElement.textContent = days[currentDate.getDay()];
+        dateElement.textContent = currentDate.getDate();
+        yearElement.textContent = currentDate.getFullYear();
+    </script>
+</body>
+</html>

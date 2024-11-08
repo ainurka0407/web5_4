@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 20</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #141313;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: #141313;
+            width: 40%;
+            min-width: 500px;
+            padding: 60px 0;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(0,139,253,0.25);
+            color: #ffffff;
+            text-align: center;
+        }
+        .timerDisplay {
+            width: 110%;
+            background: linear-gradient(-135deg, #0048ce, #008bfd);
+            padding: 40px 0;
+            font-size: 40px;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0,139,253,0.25);
+        }
+        .buttons {
+            width: 80%;
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .buttons button {
+            padding: 10px 20px;
+            background-color: #ffffff;
+            color: #141313;
+            border: none;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.2s ease;
+        }
+        .buttons button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="timerDisplay">
+            00 : 00 : 00 : 000
+        </div>
+        <div class="buttons">
+            <button id="startTimer">Start</button>
+            <button id="pauseTimer">Pause</button>
+            <button id="resetTimer">Reset</button>
+        </div>
+    </div>
+    
+    <script>
+        let [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
+        const timerDisplay = document.querySelector('.timerDisplay');
+        let interval = null;
+
+        document.getElementById('startTimer').addEventListener('click', () => {
+            if (interval) clearInterval(interval);
+            interval = setInterval(updateTimer, 10);
+        });
+
+        document.getElementById('pauseTimer').addEventListener('click', () => {
+            clearInterval(interval);
+        });
+
+        document.getElementById('resetTimer').addEventListener('click', () => {
+            clearInterval(interval);
+            [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
+            timerDisplay.textContent = '00 : 00 : 00 : 000';
+        });
+
+        function updateTimer() {
+            milliseconds += 10;
+            if (milliseconds === 1000) {
+                milliseconds = 0;
+                seconds++;
+                if (seconds === 60) {
+                    seconds = 0;
+                    minutes++;
+                    if (minutes === 60) {
+                        minutes = 0;
+                        hours++;
+                    }
+                }
+            }
+
+            const h = hours < 10 ? "0" + hours : hours;
+            const m = minutes < 10 ? "0" + minutes : minutes;
+            const s = seconds < 10 ? "0" + seconds : seconds;
+            const ms = milliseconds < 10 ? "00" + milliseconds : milliseconds < 100 ? "0" + milliseconds : milliseconds;
+
+            timerDisplay.textContent = ` ${h} : ${m} : ${s} : ${ms}`;
+        }
+    </script>
+</body>
+</html>

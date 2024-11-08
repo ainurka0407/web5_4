@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 19</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .choiceBtn {
+            line-height: 30px;
+            width: 150px;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        #gameDiv {
+            font-family: 'Brush Script MT', cursive;
+            border: 3px solid #444;
+            border-radius: 25px;
+            padding: 20px;
+            background-color: lightgrey;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .gameText {
+            margin: 10px 0;
+        }
+        #playerText {
+            color: blue;
+        }
+        #computerText {
+            color: red;
+        }
+        #resultText {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameDiv">
+        <h1 class="gameText" id="playerText">Player: </h1>
+        <h1 class="gameText" id="computerText">Computer: </h1>
+        <h1 class="gameText" id="resultText">Result: </h1>
+
+        <button class="choiceBtn">ROCK</button>
+        <button class="choiceBtn">PAPER</button>
+        <button class="choiceBtn">SCISSORS</button>
+    </div>
+    <script>
+        const playerText = document.getElementById("playerText");
+        const computerText = document.getElementById("computerText");
+        const resultText = document.getElementById("resultText");
+        const choiceBtns = document.querySelectorAll(".choiceBtn");
+
+        let playerChoice;
+        let computerChoice;
+
+        choiceBtns.forEach(button => 
+            button.addEventListener("click", () => {
+                playerChoice = button.textContent;
+                computerChoice = generateComputerChoice();
+                
+                playerText.textContent = `Player: ${playerChoice}`;
+                computerText.textContent = `Computer: ${computerChoice}`;
+                resultText.textContent = determineWinner(playerChoice, computerChoice);
+            })
+        );
+
+        function generateComputerChoice() {
+            const choices = ["ROCK", "PAPER", "SCISSORS"];
+            return choices[Math.floor(Math.random() * choices.length)];
+        }
+
+        function determineWinner(player, computer) {
+            if (player === computer) {
+                return "Draw!";
+            }
+            if (
+                (player === "ROCK" && computer === "SCISSORS") ||
+                (player === "PAPER" && computer === "ROCK") ||
+                (player === "SCISSORS" && computer === "PAPER")
+            ) {
+                return "You Win!";
+            }
+            return "You Lose!";
+        }
+    </script>
+</body>
+</html>
